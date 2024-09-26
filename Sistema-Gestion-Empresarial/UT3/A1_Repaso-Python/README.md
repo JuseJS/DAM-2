@@ -239,7 +239,7 @@ def fake_users():
 fake_users()
 main_menu()
 ```
-https://www.youtube.com/watch?v=Kp4Mvapo5kc&pp=ygUGcHl0aG9u
+[![Miniatura del video](https://i.imgur.com/ejemplo.png)](https://www.youtube.com/watch?v=Kp4Mvapo5kc&pp=ygUGcHl0aG9u)
 
 - Usando un diccionario.
 - Al llenarse, las contraseñas deben pasarse a un formato Hash (por ejemplo, SHA-512).
