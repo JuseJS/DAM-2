@@ -234,10 +234,12 @@ def fake_users():
   users.append(["Pedro", hash_password("Prueba2")])
   users.append(["Miguel", hash_password("Prueba3")])
   users.append(["Antonio", hash_password("Prueba4")])
+  users.append(["Roberto", hash_password("Prueba5")])
 
 fake_users()
 main_menu()
 ```
+https://www.youtube.com/watch?v=Kp4Mvapo5kc&pp=ygUGcHl0aG9u
 
 - Usando un diccionario.
 - Al llenarse, las contraseñas deben pasarse a un formato Hash (por ejemplo, SHA-512).
