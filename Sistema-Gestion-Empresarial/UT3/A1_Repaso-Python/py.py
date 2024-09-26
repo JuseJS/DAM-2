@@ -1,8 +1,8 @@
 # Importamos la libreria hashlib para el hash de la contraseña
 import hashlib
 
-# Creamos la lista donde se almacenaran los usuarios
-users = []
+# Creamos un diccionario donde se almacenaran los usuarios
+users = {}
 
 # Hasehamos la contraseña a sha512
 def hash_password(password):
@@ -31,26 +31,31 @@ def login_user():
 
 # Registra un nuevo usuario, comprobando que ya no exista
 def register_user():
+  key_name = "user" + str(len(users) + 1)
   username = input("Introduce el nombre de usuario: ")
   while check_user_exists(username):
     username = input("Este nombre de usuario ya existe!\nNuevo nombre de usuario: ")
 
   password = input("Introduce la contraseña para el usuario: ")
-  users.append([username, hash_password(password)])
+
+  users[key_name] = {
+    "username" : username,
+    "password" : hash_password(password)
+  }
   print("El usuario " + username + " se ha registrado correctamente\n")
   main_menu()
 
-# Comprueba si el usuario existe ya en la lista
+# Comprueba si el usuario existe
 def check_user_exists(username):
-  for i in range(len(users)):
-    if users[i][0] == username:
+  for key in users:
+    if users[key]["username"] == username:
       return True
   return False
 
 # Comprueba que la clave corresponda al usuario y sea correcta
 def check_password(username, password):
-  for i in range(len(users)):
-    if users[i][0] == username and users[i][1] == password:
+  for key in users:
+    if users[key]["username"] == username and users[key]["password"] == password:
       return True
   return False
 
@@ -69,10 +74,11 @@ def main_menu():
 
 # Crea datos falsos para probar el programa
 def fake_users():
-  users.append(["Jose", hash_password("Prueba1")])
-  users.append(["Pedro", hash_password("Prueba2")])
-  users.append(["Miguel", hash_password("Prueba3")])
-  users.append(["Antonio", hash_password("Prueba4")])
+  users["user1"] = {"username" : "Jose", "password" : hash_password("Prueba1")}
+  users["user2"] = {"username" : "Pedro", "password" : hash_password("Prueba2")}
+  users["user3"] = {"username" : "Miguel", "password" : hash_password("Prueba3")}
+  users["user4"] = {"username" : "Antonio", "password" : hash_password("Prueba4")}
+  users["user5"] = {"username" : "Roberto", "password" : hash_password("Prueba5")}
 
 fake_users()
 main_menu()

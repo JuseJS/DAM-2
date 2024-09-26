@@ -118,6 +118,7 @@ tiene varias lineas
 """
 ```
 
+* * *
 ***EJ2 - En Python 3 los tipos simples pasan por valor y los compuestos por referencia. Crea un ejemplo con 3 funciones que:***
 - Reciban 2 números y devuelvan la suma.
 ```
@@ -156,6 +157,7 @@ print(lista)            # Output: [1, 2, 3, 4, 5]
 print(lista_modifica)   # Output: [2, 4, 6, 8, 10]
 ```
 
+* * *
 ***EJ3 - A partir de un contexto donde queremos almacenar un usuario y su contraseña, haz un ejemplo que explique cómo se haría:***
 - Usando una lista.
 ```
@@ -239,8 +241,123 @@ def fake_users():
 fake_users()
 main_menu()
 ```
-[![Miniatura del video](https://i.imgur.com/ejemplo.png)](https://www.youtube.com/watch?v=Kp4Mvapo5kc&pp=ygUGcHl0aG9u)
+[![Comprobacion del codigo](https://i.imgur.com/ejemplo.png)](https://www.youtube.com/watch?v=Kp4Mvapo5kc&pp=ygUGcHl0aG9u)
 
 - Usando un diccionario.
+```
+# Importamos la libreria hashlib para el hash de la contraseña
+import hashlib
+
+# Creamos un diccionario donde se almacenaran los usuarios
+users = {}
+
+# Hasehamos la contraseña a sha512
+def hash_password(password):
+  password_bytes = password.encode('utf-8')
+
+  sha512 = hashlib.sha512()
+
+  sha512.update(password_bytes)
+
+  hashed_password = sha512.hexdigest()
+
+  return hashed_password
+
+# Comprueba los datos del usuario para iniciar sesion
+def login_user():
+  username = input("Introduce el nombre de usuario: ")
+  while not check_user_exists(username):
+    username = input("El nombre de usuario no existe, introduce un nombre valida: ")
+
+  password = input("Introduce la contrasaña del usuario: ")
+  while not check_password(username, hash_password(password)):
+    password = input("La contraseña no es correcta, vuelvelo a intentar: ")
+
+  print("Has iniciado sesion correctamente con el usuario: " + username + "\n")
+  main_menu()
+
+# Registra un nuevo usuario, comprobando que ya no exista
+def register_user():
+  key_name = "user" + str(len(users) + 1)
+  username = input("Introduce el nombre de usuario: ")
+  while check_user_exists(username):
+    username = input("Este nombre de usuario ya existe!\nNuevo nombre de usuario: ")
+
+  password = input("Introduce la contraseña para el usuario: ")
+
+  users[key_name] = {
+    "username" : username,
+    "password" : hash_password(password)
+  }
+  print("El usuario " + username + " se ha registrado correctamente\n")
+  main_menu()
+
+# Comprueba si el usuario existe
+def check_user_exists(username):
+  for key in users:
+    if users[key]["username"] == username:
+      return True
+  return False
+
+# Comprueba que la clave corresponda al usuario y sea correcta
+def check_password(username, password):
+  for key in users:
+    if users[key]["username"] == username and users[key]["password"] == password:
+      return True
+  return False
+
+# Muestra el menu inicial
+def main_menu():
+  opcion = "0"
+  while not (opcion == "1" or opcion == "2" or opcion == "3"):
+    opcion = input("¿Que deseas hacer? \n1 - Iniciar sesion \n2 - Registrar un nuevo usuario\n3 - Salir\n- ")
+  if opcion == "1":
+    login_user()
+    return
+  if opcion == "3":
+    print("Adios!")
+    return
+  register_user()
+
+# Crea datos falsos para probar el programa
+def fake_users():
+  users["user1"] = {"username" : "Jose", "password" : hash_password("Prueba1")}
+  users["user2"] = {"username" : "Pedro", "password" : hash_password("Prueba2")}
+  users["user3"] = {"username" : "Miguel", "password" : hash_password("Prueba3")}
+  users["user4"] = {"username" : "Antonio", "password" : hash_password("Prueba4")}
+  users["user5"] = {"username" : "Roberto", "password" : hash_password("Prueba5")}
+
+fake_users()
+main_menu()
+```
+[![Comprobacion del codigo](https://i.imgur.com/ejemplo.png)](https://www.youtube.com/watch?v=Kp4Mvapo5kc&pp=ygUGcHl0aG9u)
+
 - Al llenarse, las contraseñas deben pasarse a un formato Hash (por ejemplo, SHA-512).
 - El ejemplo debe llenar la lista con 5 usuarios/contraseña y hacer dos consultas.
+
+* * *
+***EJ4 - Explica con ejemplos cómo funcionan los operadores “is”, “not”, “in” en Python 3.***  
+\nEl operador "is", se usa para comprobar que por ejemplo 2 variables apunten al mismo objeto en memoria:
+```
+a = [1, 2, 3]
+b = a
+print(a is b)  # Output: True
+
+c = [1, 2, 3]
+print(a is c)  # Output: False
+```
+
+El operador "in", se usa para comprobar si un valor existe dentro de una secuencia de caracteres, lista, diccionario, etc:
+```
+a = [1, 2, 3]
+print(1 in a)  # Output: True
+
+b = 'Hola, Jose!'
+print('Z' in b)  # Output: False
+```
+
+* * *
+***EJ5 - Tarea:***
+- Pon un ejemplo de cómo pasar varios parámetros desde la consola a un programa Python 3.
+- Pon un ejemplo de cómo hacer “sobrecarga de funciones” (funciones que pueden recibir varios números de parámetros), incluyendo el caso en que el número de parámetros no esté definido.
+
